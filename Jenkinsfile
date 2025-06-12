@@ -12,7 +12,7 @@ pipeline {
   stages {
     stage('Clone Repo') {
       steps {
-        git 'https://github.com/your-org/your-playwright-repo.git'
+        git 'https://github.com/sainiboyz1/playwright-docker.git'
       }
     }
 
