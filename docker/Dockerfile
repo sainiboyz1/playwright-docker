@@ -23,4 +23,6 @@ RUN npx playwright install
 # Run Playwright tests with Allure reporter
 CMD ["npx", "playwright", "test", "--reporter=allure-playwright"]
 
+USER root
+
 
