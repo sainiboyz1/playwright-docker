@@ -1,4 +1,4 @@
-#version: '3.8'
+version: '3.8'
 
 services:
   playwright:
@@ -8,5 +8,7 @@ services:
     volumes:
       - .:/app
       - ./allure-results:/app/allure-results
+      - ./test-results:/app/test-results  # Explicitly mount test-results
     environment:
       - CI=true
+    working_dir: /app
