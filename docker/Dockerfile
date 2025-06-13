@@ -1,34 +1,32 @@
-# Use official Playwright image with all dependencies installed
-# Use official Playwright image (Linux-based but runs on Docker for Windows)
 FROM mcr.microsoft.com/playwright:v1.53.0-jammy
 
-# Set working directory inside the container
+# Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json if available
+# Copy dependency files
 COPY package*.json ./
 
-# Install project dependencies
+# Install dependencies
 RUN npm install
 
-# Copy the rest of the project files
+# Copy project files
 COPY . .
 
-# Install Allure and Playwright dependencies
+# Create test-results with correct ownership
+RUN mkdir -p /app/test-results && chown -R pwuser:pwuser /app/test-results
+
+# Install necessary test tools
 RUN npm install --save-dev @playwright/test allure-playwright allure-commandline
 
 # Install Playwright browsers
 RUN npx playwright install
 
-# Create test-results folder and give broad permissions (safe in CI/dev context)
-RUN mkdir -p /app/test-results \
- && chmod -R 777 /app/test-results
+# Switch to the pwuser (default Playwright user with safer perms)
+USER pwuser
 
-# Set the user to root to avoid permission errors
-USER root
-
-# Use PowerShell-style compatible entrypoint for Windows
+# Run the tests
 CMD ["npx", "playwright", "test", "--reporter=allure-playwright"]
+
 
 
 
