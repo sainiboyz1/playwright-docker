@@ -1,6 +1,12 @@
+version: "3.8"
 services:
   playwright:
     build:
-      context: ./docker
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: docker/Dockerfile
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: npm test
+
 
