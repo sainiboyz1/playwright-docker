@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        label 'docker' // Or just use `any` if you're not assigning agents
-    }
+    agent any
 
     stages {
         stage('Checkout') {
@@ -12,14 +10,15 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t playwright-docker -f docker/Dockerfile .'
+                bat 'docker build -t playwright-docker -f docker/Dockerfile .'
             }
         }
 
-        stage('Run Tests in Container') {
+        stage('Run Tests in Docker') {
             steps {
-                sh 'docker run --rm -v $PWD:/app -w /app playwright-docker npm test'
+                bat 'docker run --rm -v %cd%:/app -w /app playwright-docker npm test'
             }
         }
     }
 }
+
