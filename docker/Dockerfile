@@ -4,13 +4,14 @@ FROM mcr.microsoft.com/playwright:focal
 # Set working directory
 WORKDIR /app
 
+# First copy only package files so Docker cache is preserved between runs
+COPY package*.json ./
 
 # Install dependencies
 RUN npm install
 
 
 # Copy project files
-COPY package*.json ./
 COPY . .
 
 # Ensure test-results directory exists and is writable
