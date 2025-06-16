@@ -14,7 +14,9 @@ RUN npm install
 COPY . .
 
 # Create test-results folder with proper permissions
-RUN mkdir -p /app/test-results && chmod -R 777 /app/test-results
+# RUN mkdir -p /app/test-results && chmod -R 777 /app/test-results
+RUN mkdir -p /tmp/test-results && chmod -R 777 /tmp/test-results
+
 
 # Default command to run tests
 CMD ["npx", "playwright", "test"]
