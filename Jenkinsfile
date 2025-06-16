@@ -1,4 +1,4 @@
-#Test NOT to run on container
+// Test NOT to run on container
 pipeline {
   agent any
 
