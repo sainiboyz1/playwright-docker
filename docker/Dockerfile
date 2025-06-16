@@ -1,24 +1,24 @@
-# Use the official Playwright base image
+# Use official Playwright image
 FROM mcr.microsoft.com/playwright:focal
 
-# Set working directory
+# Set working directory inside container
 WORKDIR /app
 
-# First copy only package files so Docker cache is preserved between runs
+# Copy only package files first to leverage Docker cache
 COPY package*.json ./
 
-# Install dependencies
+# Install npm dependencies
 RUN npm install
 
-
-# Copy project files
+# Copy all project files into container
 COPY . .
 
-# Ensure test-results directory exists and is writable
+# Create test-results folder with proper permissions
 RUN mkdir -p /app/test-results && chmod -R 777 /app/test-results
 
-# Run tests by default
+# Default command to run tests
 CMD ["npx", "playwright", "test"]
+
 
 
 
