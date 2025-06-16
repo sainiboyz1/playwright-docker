@@ -33,6 +33,7 @@ export default defineConfig({
   use: {
     headless: true,
     trace: 'on-first-retry',
+    outputDir: process.env.CI ? '/tmp/test-results' : 'test-results',
     // baseURL: 'http://localhost:3000',
   },
 
