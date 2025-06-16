@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+        label 'docker' // Or just use `any` if you're not assigning agents
+    }
 
     stages {
         stage('Checkout') {
@@ -7,20 +9,16 @@ pipeline {
                 git 'https://github.com/sainiboyz1/playwright-docker.git'
             }
         }
+
         stage('Build Docker Image') {
             steps {
-                script {
-                    docker.build('playwright-docker', '-f docker/Dockerfile .')
-                }
+                sh 'docker build -t playwright-docker -f docker/Dockerfile .'
             }
         }
-        stage('Run Tests') {
+
+        stage('Run Tests in Container') {
             steps {
-                script {
-                    docker.image('playwright-docker').inside {
-                        sh 'npm test'
-                    }
-                }
+                sh 'docker run --rm -v $PWD:/app -w /app playwright-docker npm test'
             }
         }
     }
