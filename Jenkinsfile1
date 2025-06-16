@@ -1,4 +1,4 @@
-// Test to run on Docker Containers
+/* Test to run on Docker Containers */
 pipeline {
     agent any
 
