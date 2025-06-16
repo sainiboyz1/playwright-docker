@@ -27,7 +27,7 @@ export default defineConfig({
   timeout: 60000, // 60 seconds
 
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [['html'], ['allure-playwright']],
+  reporter: [['html',{ open: 'never' }], ['allure-playwright']],
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
