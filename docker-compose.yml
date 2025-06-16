@@ -2,8 +2,9 @@ version: "3.8"
 
 services:
   playwright:
-    build:
-      context: .
+    build:https://github.com/sainiboyz1/playwright-docker/blob/master/docker-compose.yml
+      context: ./docker
+      dockerfile: Dockerfile
     container_name: playwrightdocker-playwright-1
     volumes:
       - .:/app
