@@ -1,14 +1,12 @@
-version: '3.8'
+version: "3.8"
 
 services:
   playwright:
     build:
       context: .
-      dockerfile: docker/Dockerfile
+    container_name: playwrightdocker-playwright-1
     volumes:
       - .:/app
-      - ./allure-results:/app/allure-results
-      - ./test-results:/app/test-results  # Mount for test results
-    environment:
-      - CI=true
+      - ./test-results:/app/test-results
     working_dir: /app
+
