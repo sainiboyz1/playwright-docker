@@ -1,31 +1,22 @@
-FROM mcr.microsoft.com/playwright:v1.53.0-jammy
+# Use the official Playwright base image
+FROM mcr.microsoft.com/playwright:focal
 
 # Set working directory
 WORKDIR /app
 
-# Copy dependency files
+# Copy project files
 COPY package*.json ./
+COPY . .
 
 # Install dependencies
 RUN npm install
 
-# Copy project files
-COPY . .
+# Ensure test-results directory exists and is writable
+RUN mkdir -p /app/test-results && chmod -R 777 /app/test-results
 
-# Create test-results with correct ownership
-RUN mkdir -p /app/test-results && chown -R pwuser:pwuser /app/test-results
+# Run tests by default
+CMD ["npx", "playwright", "test"]
 
-# Install necessary test tools
-RUN npm install --save-dev @playwright/test allure-playwright allure-commandline
-
-# Install Playwright browsers
-RUN npx playwright install
-
-# Switch to the pwuser (default Playwright user with safer perms)
-USER pwuser
-
-# Run the tests
-CMD ["npx", "playwright", "test", "--reporter=allure-playwright"]
 
 
 
