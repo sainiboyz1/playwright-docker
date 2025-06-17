@@ -6,7 +6,6 @@
   "type": "commonjs",
   "scripts": {
     "test": "npx playwright test",
-    "test": "rm -rf allure-results && playwright test",
     "test:headed": "npx playwright test --headed",
     "test:report": "npx allure generate allure-results --clean -o allure-report",
     "report:open": "npx allure open allure-report"
