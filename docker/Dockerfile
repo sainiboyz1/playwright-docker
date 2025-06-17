@@ -21,6 +21,10 @@ RUN mkdir -p /tmp/test-results && chmod -R 777 /tmp/test-results
 # Default command to run tests
 CMD ["npx", "playwright", "test"]
 
+# REMOVE if error occurs
+RUN npm i -D @playwright/test allure-playwright allure-commandline
+RUN npx playwright install
+
 
 
 
