@@ -19,7 +19,7 @@ RUN mkdir -p /tmp/test-results && chmod -R 777 /tmp/test-results
 
 
 # Default command to run tests
-CMD ["npx", "playwright", "test"]
+CMD ["npx", "playwright", "test", "--reporter=allure-playwright"]
 
 # REMOVE if error occurs
 RUN npm i -D @playwright/test allure-playwright allure-commandline
